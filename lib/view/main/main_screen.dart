@@ -41,6 +41,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
   String? _savingOverride;
   String? _limitOverride;
   String _selectedBasketAsset = ShopCatalog.defaultBasketAsset;
+  String _selectedBasketMaskAsset = ShopCatalog.defaultBasketMaskAsset;
   String _selectedBackgroundAsset = ShopCatalog.defaultBackgroundAsset;
   StreamSubscription? _shopSub;
   late final AnimationController _glowCtrl;
@@ -89,10 +90,12 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
     final selectedBasketId = prefs.getString('selected_basket');
     final selectedBackgroundId = prefs.getString('selected_background');
     String basketAsset = ShopCatalog.defaultBasketAsset;
+    String basketMaskAsset = ShopCatalog.defaultBasketMaskAsset;
     if (selectedBasketId != null) {
       final match = ShopCatalog.baskets.where((e) => e.id == selectedBasketId);
       if (match.isNotEmpty) {
         basketAsset = match.first.assetPath;
+        basketMaskAsset = match.first.maskAssetPath ?? ShopCatalog.defaultBasketMaskAsset;
       }
     }
     String bgAsset = ShopCatalog.defaultBackgroundAsset;
@@ -105,6 +108,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
     if (mounted) {
       setState(() {
         _selectedBasketAsset = basketAsset;
+        _selectedBasketMaskAsset = basketMaskAsset;
         _selectedBackgroundAsset = bgAsset;
       });
     }
@@ -232,11 +236,12 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
                               tween: Tween<double>(begin: 0, end: state.savingPercent),
                               builder: (_, value, __) {
                                 final eff = value.clamp(0.0, 1.0).toDouble();
+                                final maskAsset = _selectedBasketMaskAsset;
                                 return Stack(
                                   fit: StackFit.expand,
                                   children: [
-                                    Image.asset( // TODO *_mask.webp depend selected basket
-                                      'assets/baskets/box_shop_2_mask.webp',
+                                    Image.asset(
+                                      maskAsset,
                                       fit: BoxFit.contain,
                                     ),
                                     ShaderMask(

@@ -4,12 +4,14 @@ class ShopItem {
   final String id;
   final String name;
   final String assetPath;
+  final String? maskAssetPath;
   final int price;
   final ShopItemType type;
   const ShopItem({
     required this.id,
     required this.name,
     required this.assetPath,
+    this.maskAssetPath,
     required this.price,
     required this.type,
   });
@@ -20,6 +22,7 @@ sealed class ShopCatalog {
   static const int backgroundPrice = 1250;
 
   static const String defaultBasketAsset = 'assets/baskets/box_default.webp';
+  static const String defaultBasketMaskAsset = 'assets/baskets/box_default_mask.webp';
   static const String defaultBackgroundAsset = 'assets/bg_in_game/bg_1.webp';
 
   static const List<ShopItem> baskets = [
@@ -27,6 +30,7 @@ sealed class ShopCatalog {
       id: 'basket_1',
       name: 'PINK',
       assetPath: 'assets/baskets/box_shop_1.webp',
+      maskAssetPath: 'assets/baskets/box_shop_1_mask.webp',
       price: basketPrice,
       type: ShopItemType.basket,
     ),
@@ -34,6 +38,7 @@ sealed class ShopCatalog {
       id: 'basket_2',
       name: 'GREEN',
       assetPath: 'assets/baskets/box_shop_2.webp',
+      maskAssetPath: 'assets/baskets/box_shop_2_mask.webp',
       price: basketPrice,
       type: ShopItemType.basket,
     ),
@@ -41,6 +46,7 @@ sealed class ShopCatalog {
       id: 'basket_3',
       name: 'BLUE',
       assetPath: 'assets/baskets/box_shop_3.webp',
+      maskAssetPath: 'assets/baskets/box_shop_3_mask.webp',
       price: basketPrice,
       type: ShopItemType.basket,
     ),
@@ -48,6 +54,7 @@ sealed class ShopCatalog {
       id: 'basket_4',
       name: 'VIOLET',
       assetPath: 'assets/baskets/box_shop_4.webp',
+      maskAssetPath: 'assets/baskets/box_shop_4_mask.webp',
       price: basketPrice,
       type: ShopItemType.basket,
     ),
@@ -55,6 +62,7 @@ sealed class ShopCatalog {
       id: 'basket_5',
       name: 'RED',
       assetPath: 'assets/baskets/box_shop_5.webp',
+      maskAssetPath: 'assets/baskets/box_shop_5_mask.webp',
       price: basketPrice,
       type: ShopItemType.basket,
     ),
@@ -105,6 +113,7 @@ sealed class ShopCatalog {
         id: 'unknown',
         name: 'Unknown',
         assetPath: defaultBasketAsset,
+        maskAssetPath: defaultBasketMaskAsset,
         price: 0,
         type: ShopItemType.basket,
       ),
