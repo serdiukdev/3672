@@ -137,7 +137,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
           ),
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0),
-            child: Container(color: AppColors.mainBlack.withOpacity(0.15)),
+            child: Container(color: AppColors.mainBlack.withOpacity(0.25)),
           ),
           SafeArea(
             child: BlocListener<MainBloc, MainState>(
@@ -189,7 +189,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
                                 },
                                 child: Image.asset(
                                   'assets/general_buttons/daily_bonus_button.webp',
-                                  height: 48,
+                                  height: 58,
                                 ),
                               ),
                               const SizedBox(height: 4),
@@ -198,7 +198,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
                                 child: Text(
                                   AppTexts.getBonus,
                                   textAlign: TextAlign.center,
-                                  style: AppStyles.yellowText,
+                                  style: AppStyles.yellowText.copyWith(fontSize: 13),
                                 ),
                               ),
                             ],
@@ -235,8 +235,8 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
                                 return Stack(
                                   fit: StackFit.expand,
                                   children: [
-                                    Image.asset(
-                                      'assets/baskets/empty_basket.webp',
+                                    Image.asset( // TODO *_mask.webp depend selected basket
+                                      'assets/baskets/box_shop_2_mask.webp',
                                       fit: BoxFit.contain,
                                     ),
                                     ShaderMask(

@@ -49,6 +49,7 @@ class _ShopScreenState extends State<ShopScreen> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        title: Text(AppTexts.shop),
         leading: IconButton(
           onPressed: () => context.pushNamedAndRemoveUntil(MainScreen.routeName),
           icon: Image.asset('assets/general_buttons/back_icon.webp'),
@@ -305,7 +306,7 @@ class _ShopItemTile extends StatelessWidget {
             color: Colors.transparent,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: AppColors.progressBorder,
+            color: AppColors.thirdText,
             width: 2
           )
         ),

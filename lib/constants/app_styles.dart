@@ -131,4 +131,10 @@ class AppStyles {
     fontWeight: FontWeight.w800,
     color: AppColors.mainWhite,
   );
+
+  static final statListBlue = GoogleFonts.laila(
+    fontSize: 18,
+    fontWeight: FontWeight.w800,
+    color: AppColors.mainBLue,
+  );
 }

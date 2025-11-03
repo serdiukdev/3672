@@ -75,7 +75,7 @@ class _ChooseCategoryIncomeState extends State<ChooseCategoryIncome> {
                 child: Container(
                   width: double.infinity,
                   // padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 6),
-                  decoration: BoxDecoration(color: AppColors.topGreenBg),
+                  decoration: BoxDecoration(color: AppColors.topBlueBg),
                   child: Center(child: Text('INCOME', style: AppStyles.categoryItem)),
                 ),
               ),

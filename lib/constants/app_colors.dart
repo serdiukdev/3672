@@ -11,18 +11,17 @@ class AppColors {
 
   static const mainGreen =  Color(0xE51A7700); //90%
   static const mainBlack =  Color (0xFF000000);
+  static const mainBLue = Color (0xFF09CED7);
 
   static const secondItemBg =  Color (0x80FFFF61); //50%
-  static const greenBg = Color (0xE51A7700);//90%
-  static const orangeBG = Color (0xE5C24500);  //90%
-  static const bottomRedBg = Color(0x5CA60805); //90%
-  static const topGreenBg = Color(0xCC28950A);  //80%
-  static const topOrangeBG = Color(0xCCB9150C); //80%
+  static const topBlueBg = Color(0xCC09CED7);  //80%
+  static const topOrangeBG = Color(0xCCFD911E); //80%
   static const bottomNavBg = Color(0xB2B20500);  //70%
   static const bottomNavBorder = Color(0xFFFFAC01);
-  static const progressBorder = Color(0xFFFF0D00);
+  static const progressBorder = Color(0xFFFE9F06);
   static const chartBorder = Color(0xFFDC5100);
   static const popupYellowText = Color(0xFFFFCD00);
+  static const yellowBorder = Color (0xFF);
 
   static const goldenYellow =  Color(0xFFFFD700);
 

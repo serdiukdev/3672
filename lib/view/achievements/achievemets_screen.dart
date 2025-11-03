@@ -34,6 +34,11 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
     'assets/achievements/ach_4.webp',
     'assets/achievements/ach_5.webp',
     'assets/achievements/ach_6.webp',
+    'assets/achievements/ach_7.webp',
+    'assets/achievements/ach_8.webp',
+    'assets/achievements/ach_10.webp',
+    'assets/achievements/ach_11.webp',
+    'assets/achievements/ach_12.webp',
   ];
 
   @override
@@ -65,6 +70,8 @@ class _AchievementsScreenState extends State<AchievementsScreen> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        title: Text(AppTexts.achievements,
+        style: AppStyles.achievementTitle,),
         actions: [
           IconButton(
             onPressed:

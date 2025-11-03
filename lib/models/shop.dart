@@ -19,42 +19,42 @@ sealed class ShopCatalog {
   static const int basketPrice = 300;
   static const int backgroundPrice = 1250;
 
-  static const String defaultBasketAsset = 'assets/baskets/defoult_bascket.webp';
+  static const String defaultBasketAsset = 'assets/baskets/box_default.webp';
   static const String defaultBackgroundAsset = 'assets/bg_in_game/bg_1.webp';
 
   static const List<ShopItem> baskets = [
     ShopItem(
       id: 'basket_1',
-      name: 'White',
-      assetPath: 'assets/baskets/basket_shop_1.webp',
+      name: 'PINK',
+      assetPath: 'assets/baskets/box_shop_1.webp',
       price: basketPrice,
       type: ShopItemType.basket,
     ),
     ShopItem(
       id: 'basket_2',
-      name: 'Green',
-      assetPath: 'assets/baskets/basket_shop_2.webp',
+      name: 'GREEN',
+      assetPath: 'assets/baskets/box_shop_2.webp',
       price: basketPrice,
       type: ShopItemType.basket,
     ),
     ShopItem(
       id: 'basket_3',
-      name: 'Blue',
-      assetPath: 'assets/baskets/basket_shop_3.webp',
+      name: 'BLUE',
+      assetPath: 'assets/baskets/box_shop_3.webp',
       price: basketPrice,
       type: ShopItemType.basket,
     ),
     ShopItem(
       id: 'basket_4',
-      name: 'Red',
-      assetPath: 'assets/baskets/basket_shop_4.webp',
+      name: 'VIOLET',
+      assetPath: 'assets/baskets/box_shop_4.webp',
       price: basketPrice,
       type: ShopItemType.basket,
     ),
     ShopItem(
       id: 'basket_5',
-      name: 'Black',
-      assetPath: 'assets/baskets/basket_shop_5.webp',
+      name: 'RED',
+      assetPath: 'assets/baskets/box_shop_5.webp',
       price: basketPrice,
       type: ShopItemType.basket,
     ),
@@ -63,14 +63,14 @@ sealed class ShopCatalog {
   static const List<ShopItem> backgrounds = [
     ShopItem(
       id: 'bg_1',
-      name: 'SUNNY VIEW',
+      name: 'GOLDEN RED',
       assetPath: 'assets/bg_in_shop/bg_shop_1.webp',
       price: backgroundPrice,
       type: ShopItemType.background,
     ),
     ShopItem(
       id: 'bg_2',
-      name: 'SUNNY FIELD',
+      name: 'MAGIC FOREST',
       assetPath: 'assets/bg_in_shop/bg_shop_2.webp',
       price: backgroundPrice,
       type: ShopItemType.background,
@@ -84,14 +84,14 @@ sealed class ShopCatalog {
     ),
     ShopItem(
       id: 'bg_4',
-      name: 'MAGIC WINTER',
+      name: 'WOODEN FIELD',
       assetPath: 'assets/bg_in_shop/bg_shop_4.webp',
       price: backgroundPrice,
       type: ShopItemType.background,
     ),
     ShopItem(
       id: 'bg_5',
-      name: 'GOLD AUTUMN',
+      name: 'SUNNY BLUE',
       assetPath: 'assets/bg_in_shop/bg_shop_5.webp',
       price: backgroundPrice,
       type: ShopItemType.background,

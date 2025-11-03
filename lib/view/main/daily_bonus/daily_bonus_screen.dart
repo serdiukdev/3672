@@ -13,6 +13,7 @@ import '../../../blocs/daily_bonus/state.dart';
 
 class DailyBonusScreen extends StatefulWidget {
   static const routeName = '/daily_bonus';
+
   const DailyBonusScreen({super.key});
 
   @override
@@ -28,12 +29,15 @@ class _DailyBonusScreenState extends State<DailyBonusScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       body: Stack(
         children: [
           SizedBox.expand(
-            child: Image.asset('assets/bg_in_game/bg_1.webp', fit: BoxFit.cover),
+            child: Image.asset(
+                'assets/bg_in_game/bg_1.webp', fit: BoxFit.cover),
           ),
           SafeArea(
             child: BlocBuilder<DailyBonusBloc, DailyBonusState>(
@@ -55,17 +59,19 @@ class _DailyBonusScreenState extends State<DailyBonusScreen> {
                           _RoundButton(icon: 'assets/general_buttons/back_arrow.webp', onTap: () => context.pushNamedAndRemoveUntil(MainScreen.routeName)),
                           Container(height: 28, width: 70,
                             decoration: BoxDecoration(
-                            image: DecorationImage(image: AssetImage('assets/general_buttons/coin_aria_bg.webp'),
-                            fit: BoxFit.contain)
-                          ),
+                                image: DecorationImage(image: AssetImage(
+                                    'assets/general_buttons/coin_aria_bg.webp'),
+                                    fit: BoxFit.contain)
+                            ),
                             child: Center(
                               child: Text(
                                   state.balance.toString(),
-                                  style: AppStyles.greenButtonText.copyWith(fontSize: 12)),
+                                  style: AppStyles.greenButtonText.copyWith(
+                                      fontSize: 12)),
                             ),
-                              ),
-                            ],
                           ),
+                        ],
+                      ),
 
 
                     ),
@@ -75,13 +81,17 @@ class _DailyBonusScreenState extends State<DailyBonusScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 18.0),
                       child: Container(
-                        width: size.width*0.8, height: size.height*0.3,
-                        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+                        width: size.width * 0.8,
+                        height: size.height * 0.3,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 18, vertical: 18),
                         decoration: BoxDecoration(
-                          image: DecorationImage(image: AssetImage('assets/bg_components/daily_bonus_bg.webp'),
-                          fit: BoxFit.contain)
-                          ),
-                        child: Column( mainAxisAlignment: MainAxisAlignment.center,
+                            image: DecorationImage(image: AssetImage(
+                                'assets/bg_components/daily_bonus_bg.webp'),
+                                fit: BoxFit.contain)
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(title.toUpperCase(),
                               textAlign: TextAlign.center,
@@ -113,7 +123,8 @@ class _DailyBonusScreenState extends State<DailyBonusScreen> {
                     const Spacer(),
 
                     // Character image
-                    Image.asset('assets/bg_in_game/character.webp', height: size.height * 0.43, fit: BoxFit.contain),
+                    Image.asset('assets/bg_in_game/character.webp',
+                        height: size.height * 0.43, fit: BoxFit.contain),
 
                     const SizedBox(height: 12),
                   ],
@@ -129,7 +140,9 @@ class _DailyBonusScreenState extends State<DailyBonusScreen> {
 
 class _PlusBadge extends StatelessWidget {
   final int value;
+
   const _PlusBadge({required this.value});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -149,7 +162,9 @@ class _PlusBadge extends StatelessWidget {
 class _RoundButton extends StatelessWidget {
   final String icon;
   final VoidCallback onTap;
+
   const _RoundButton({required this.icon, required this.onTap});
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -158,10 +173,10 @@ class _RoundButton extends StatelessWidget {
         width: 44,
         height: 44,
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/general_buttons/button_pillow.webp'),
-          fit: BoxFit.contain)
+            image: DecorationImage(
+                image: AssetImage('assets/general_buttons/back_icon.webp'),
+                fit: BoxFit.contain)
         ),
-        child: Image.asset(icon, height: 44),
       ),
     );
   }
