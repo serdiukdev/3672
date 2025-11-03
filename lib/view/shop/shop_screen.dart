@@ -49,7 +49,8 @@ class _ShopScreenState extends State<ShopScreen> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text(AppTexts.shop),
+        title: Text(AppTexts.shop.toUpperCase(),
+        style: AppStyles.achievementTitle,),
         leading: IconButton(
           onPressed: () => context.pushNamedAndRemoveUntil(MainScreen.routeName),
           icon: Image.asset('assets/general_buttons/back_icon.webp'),

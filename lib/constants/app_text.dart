@@ -10,6 +10,7 @@ class AppTexts {
   static const privacy = 'Privacy Policy';
   static const achievements = 'ACHIEVEMENTS';
   static const shop = 'SHOP';
+  static const statistic = 'STATISTIC';
   static const myProfile = 'My Profile';
   static const baskets = 'Baskets';
   static const backs = 'Backs';

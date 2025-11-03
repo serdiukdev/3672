@@ -124,18 +124,17 @@ class _StatisticScreenState extends State<StatisticScreen> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        title: Text(AppTexts.statistic, style: AppStyles.achievementTitle),
         actions: [
           IconButton(
-            onPressed:
-                () => context.pushNamedAndRemoveUntil(
-                  ChooseMonthScreen.routeName,
-                ),
+            onPressed: () =>
+                context.pushNamedAndRemoveUntil(ChooseMonthScreen.routeName),
             icon: Image.asset('assets/general_buttons/calendar_icon.webp'),
           ),
         ],
         leading: IconButton(
-          onPressed:
-              () => context.pushNamedAndRemoveUntil(MainScreen.routeName),
+          onPressed: () =>
+              context.pushNamedAndRemoveUntil(MainScreen.routeName),
           icon: Image.asset('assets/general_buttons/back_icon.webp'),
         ),
       ),
@@ -217,13 +216,13 @@ class _StatisticScreenState extends State<StatisticScreen> {
                         child: ListView.separated(
                           //   padding: EdgeInsets.fromLTRB(16, 12, 16, 25),
                           itemCount: _stats.length,
-                          separatorBuilder:
-                              (_, __) => const SizedBox(height: 10),
+                          separatorBuilder: (_, __) =>
+                              const SizedBox(height: 10),
                           itemBuilder: (context, index) {
                             final item = _stats[index];
-                            final color =
-                                _paletteFor(_stats.length)[index %
-                                    _palette.length];
+                            final color = _paletteFor(
+                              _stats.length,
+                            )[index % _palette.length];
                             final percent = (item.percent * 100)
                                 .clamp(0, 100)
                                 .toStringAsFixed(0);
@@ -245,7 +244,9 @@ class _StatisticScreenState extends State<StatisticScreen> {
                                       color: color,
                                       shape: BoxShape.circle,
                                       border: Border.all(
-                                        color: AppColors.mainWhite.withOpacity(0.8),
+                                        color: AppColors.mainWhite.withOpacity(
+                                          0.8,
+                                        ),
                                         width: 1,
                                       ),
                                     ),
@@ -319,11 +320,10 @@ class _PieChartPainter extends CustomPainter {
       final bg = Paint()..color = Colors.white24;
       canvas.drawCircle(center, radius, bg);
       // Outer border even when empty
-      final outer =
-          Paint()
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 3
-            ..color = AppColors.chartBorder;
+      final outer = Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 3
+        ..color = AppColors.chartBorder;
       canvas.drawCircle(center, radius, outer);
       return;
     }
@@ -333,27 +333,24 @@ class _PieChartPainter extends CustomPainter {
     final arcRect = Rect.fromCircle(center: center, radius: radius);
     for (int i = 0; i < values.length; i++) {
       final sweep = (values[i] / total) * 2 * pi;
-      final fill =
-          Paint()
-            ..style = PaintingStyle.fill
-            ..color = colors[i % colors.length];
+      final fill = Paint()
+        ..style = PaintingStyle.fill
+        ..color = colors[i % colors.length];
       // Fill sector
       canvas.drawArc(arcRect, startAngle, sweep, true, fill);
 
       // Sector border (outer arc)
-      final arcStroke =
-          Paint()
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 2
-            ..color = AppColors.chartBorder;
+      final arcStroke = Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2
+        ..color = AppColors.chartBorder;
       canvas.drawArc(arcRect, startAngle, sweep, false, arcStroke);
 
       // Sector border (radial lines)
-      final line =
-          Paint()
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 2
-            ..color = AppColors.chartBorder;
+      final line = Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2
+        ..color = AppColors.chartBorder;
       final startLine = Offset(
         center.dx + cos(startAngle) * radius,
         center.dy + sin(startAngle) * radius,
@@ -392,11 +389,10 @@ class _PieChartPainter extends CustomPainter {
     }
 
     // Outer border around entire chart
-    final outer =
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 5
-          ..color = AppColors.chartBorder;
+    final outer = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 5
+      ..color = AppColors.chartBorder;
     canvas.drawCircle(center, radius, outer);
   }
 

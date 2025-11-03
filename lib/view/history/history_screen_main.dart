@@ -30,6 +30,7 @@ class _HistoryMainState extends State<HistoryMain> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        title: Text(AppTexts.history, style: AppStyles.achievementTitle,),
         actions: [
           IconButton(
             onPressed:
@@ -60,16 +61,7 @@ class _HistoryMainState extends State<HistoryMain> {
         ),
         child: Stack(
           children: [
-            Positioned(
-              top: size.height * 0.2,
-              left: 0,
-              right: 0,
-              child: Text(
-                AppTexts.history,
-                style: AppStyles.categoryItem,
-                textAlign: TextAlign.center,
-              ),
-            ),
+
             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

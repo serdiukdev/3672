@@ -57,17 +57,17 @@ class _DailyBonusScreenState extends State<DailyBonusScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           _RoundButton(icon: 'assets/general_buttons/back_arrow.webp', onTap: () => context.pushNamedAndRemoveUntil(MainScreen.routeName)),
-                          Container(height: 28, width: 70,
+                          Container(height: 30, width: 100,
                             decoration: BoxDecoration(
                                 image: DecorationImage(image: AssetImage(
                                     'assets/general_buttons/coin_aria_bg.webp'),
-                                    fit: BoxFit.contain)
+                                    fit: BoxFit.fill)
                             ),
                             child: Center(
                               child: Text(
                                   state.balance.toString(),
-                                  style: AppStyles.greenButtonText.copyWith(
-                                      fontSize: 12)),
+                                  style: AppStyles.statList.copyWith(
+                                      fontSize: 14)),
                             ),
                           ),
                         ],

@@ -112,6 +112,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        title: Text(AppTexts.settings.toUpperCase(), style: AppStyles.achievementTitle,),
         leading: IconButton(
           onPressed:
               () => context.pushNamedAndRemoveUntil(MainScreen.routeName),
@@ -185,7 +186,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     : ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image.asset(
-                                        'assets/general_buttons/ava_defoult.png',
+                                        'assets/general_buttons/ava_defoult.webp',
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -205,7 +206,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage(
-                              'assets/bg_components/set_bg.png',
+                              'assets/bg_components/set_bg.webp',
                             ),
                             fit: BoxFit.fill
                           ),
