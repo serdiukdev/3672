@@ -4,7 +4,6 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:itd_2/core/services/app_navigator.dart';
-import 'package:itd_2/view/main/main_screen.dart';
 import 'package:itd_2/features/statistic/view/choose_month_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

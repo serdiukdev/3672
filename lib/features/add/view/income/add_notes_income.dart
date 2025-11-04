@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:itd_2/core/services/app_navigator.dart';
-import 'package:itd_2/view/main/main_screen.dart';
-
 import '../../../../core/constants/app_styles.dart';
 import '../../../../core/constants/app_text.dart';
 import '../../../../core/services/finance_repository.dart';

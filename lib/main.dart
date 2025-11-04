@@ -50,8 +50,8 @@ class MyApp extends StatelessWidget {
             ? AppTexts.appAndroidTitle
             : AppTexts.appIosTitle,
         theme: ThemeData(
-          primarySwatch: Colors.red,
-          scaffoldBackgroundColor: AppColors.mainGreen,
+          primarySwatch: Colors.brown,
+          scaffoldBackgroundColor: AppColors.mainBLue,
           fontFamily: 'Knewave',
         ),
         initialRoute: LoadingScreen.routeName,

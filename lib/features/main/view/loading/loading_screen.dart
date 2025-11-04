@@ -3,7 +3,6 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_styles.dart';
 import '../../../../core/constants/app_text.dart';
 import '../../../../core/services/storage_service.dart';
-import '../../../../view/main/main_screen.dart';
 import '../../../onboarding/view/pre_onboarding_screen.dart';
 import '../../../achievements/repository/achievement_service.dart';
 import '../main_screen.dart';

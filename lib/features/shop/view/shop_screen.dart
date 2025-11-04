@@ -5,8 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:itd_2/core/constants/app_colors.dart';
 import 'package:itd_2/core/services/app_navigator.dart';
-import 'package:itd_2/view/main/main_screen.dart';
-
 import '../../../core/constants/app_styles.dart';
 import '../../../core/constants/app_text.dart';
 import '../../../core/services/storage_service.dart';

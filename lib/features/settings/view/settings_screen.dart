@@ -9,7 +9,6 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_styles.dart';
 import '../../../core/constants/app_text.dart';
 import '../../../shared/components/nav_bar.dart';
-import '../../../view/main/main_screen.dart';
 import '../../main/view/main_screen.dart';
 import '../bloc/settings/bloc.dart';
 import '../bloc/settings/state.dart';

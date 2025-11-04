@@ -6,7 +6,6 @@ import 'package:itd_2/core/services/app_navigator.dart';
 import '../../../core/constants/app_styles.dart';
 import '../../../core/constants/app_text.dart';
 import '../../../shared/components/nav_bar.dart';
-import '../../../view/main/main_screen.dart';
 import '../../main/view/main_screen.dart';
 import '../../settings/view/settings_screen.dart';
 import 'history_list_screen.dart';

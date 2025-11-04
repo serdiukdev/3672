@@ -2,8 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:itd_2/core/services/app_navigator.dart';
-import 'package:itd_2/view/main/main_screen.dart';
-
 import '../../../shared/components/nav_bar.dart';
 import '../../main/view/main_screen.dart';
 import '../../settings/view/settings_screen.dart';

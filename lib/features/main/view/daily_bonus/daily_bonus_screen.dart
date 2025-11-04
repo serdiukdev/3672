@@ -6,7 +6,6 @@ import 'package:itd_2/core/services/app_navigator.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_styles.dart';
-import '../../../../view/main/main_screen.dart';
 import '../../bloc/daily_bonus/bloc.dart';
 import '../../bloc/daily_bonus/event.dart';
 import '../../bloc/daily_bonus/state.dart';
