@@ -3,16 +3,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:itd_2/services/app_navigator.dart';
-import 'package:itd_2/services/sound_service.dart';
-import 'package:itd_2/services/storage_service.dart';
-import 'package:itd_2/view/loading/loading_screen.dart';
-import 'blocs/onboarding/bloc.dart';
-import 'blocs/main/bloc.dart';
-import 'blocs/daily_bonus/bloc.dart';
+import './core/services/app_navigator.dart';
+import './core/services/sound_service.dart';
+import './core/services/storage_service.dart';
+import './features/main/view/loading/loading_screen.dart';
+import './features/onboarding/bloc/onboarding/bloc.dart';
+import './features/main/bloc/main/bloc.dart';
+import './features/main/bloc/daily_bonus/bloc.dart';
 
-import 'constants/app_colors.dart';
-import 'constants/app_text.dart';
+import './core/constants/app_colors.dart';
+import './core/constants/app_text.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

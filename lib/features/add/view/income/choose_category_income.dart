@@ -1,0 +1,132 @@
+import 'package:flutter/material.dart';
+import 'package:itd_2/core/constants/app_text.dart';
+import 'package:itd_2/core/services/app_navigator.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_styles.dart';
+import '../../../../core/services/storage_service.dart';
+import '../../../../shared/components/nav_bar.dart';
+import '../../../settings/view/settings_screen.dart';
+import '../add_screen.dart';
+import 'add_notes_income.dart';
+
+class ChooseCategoryIncome extends StatefulWidget {
+  static const routeName = 'categoryIncome';
+
+  const ChooseCategoryIncome({super.key});
+
+  @override
+  State<ChooseCategoryIncome> createState() => _ChooseCategoryIncomeState();
+}
+
+class _ChooseCategoryIncomeState extends State<ChooseCategoryIncome> {
+  int _tab = 2;
+
+  void _onCategoryTap(String subCategory) async {
+    final storage = StorageService();
+    await storage.setSelectedIncomeCategory('income');
+    await storage.setSelectedIncomeSubCategory(subCategory);
+    if (!mounted) return;
+    context.pushNamedAndRemoveUntil(AddNotesIncome.routeName);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    const categories = <String>[
+      'Salary',
+      'Investments',
+      'Part_Time',
+      'Bonus',
+      'Other',
+    ];
+
+    return Scaffold(
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: Image.asset('assets/general_buttons/back_icon.webp'),
+          onPressed: () => context.pushNamedAndRemoveUntil(AddScreen.routeName),
+        ),
+        actions: [
+          IconButton(
+            icon: Image.asset('assets/general_buttons/setting_icon.webp'),
+            onPressed: () =>
+                context.pushNamedAndRemoveUntil(SettingsScreen.routeName),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: _tab,
+        onTap: (index) => setState(() => _tab = index),
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/bg_in_game/bg_1.webp'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(color: AppColors.topBlueBg),
+                  child: Center(
+                    child: Text(AppTexts.income, style: AppStyles.categoryItem),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  child: GridView.builder(
+                    itemCount: categories.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 16,
+                          childAspectRatio: 1.1,
+                        ),
+                    itemBuilder: (context, index) {
+                      final title = categories[index];
+                      return InkWell(
+                        borderRadius: BorderRadius.circular(20),
+                        onTap: () => _onCategoryTap(title),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: const DecorationImage(
+                              image: AssetImage(
+                                'assets/bg_components/income_item_bg.webp',
+                              ),
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            title.toUpperCase(),
+                            style: AppStyles.categoryItem.copyWith(),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
