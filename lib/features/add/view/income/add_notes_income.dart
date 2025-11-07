@@ -142,8 +142,13 @@ class _AddNotesIncomeState extends State<AddNotesIncome> {
           ),
         ],
         leading: IconButton(
-          onPressed: () =>
-              context.pushNamedAndRemoveUntil(ChooseCategoryIncome.routeName),
+          onPressed: () async {_dateController.clear();
+          _amountController.clear();
+          _notesController.clear();
+          await _storage.clearDraftIncome();
+          if (!mounted) return;
+          context.pushNamedAndRemoveUntil(ChooseCategoryIncome.routeName);
+          },
           icon: Image.asset('assets/general_buttons/back_icon.webp'),
         ),
       ),

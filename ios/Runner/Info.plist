@@ -38,7 +38,8 @@
      <string>Access to your camera is needed to take a photo for your profile picture.</string>
      <key>NSPhotoLibraryUsageDescription</key>
      <string>Access to your photo library is needed so you can choose an image to use as your profile picture.</string>
-
+    <key>PermissionGroupNotification</key>
+	<string>We use notifications to remind you about new challenges</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

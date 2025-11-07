@@ -21,7 +21,6 @@ class AppColors {
   static const progressBorder = Color(0xFFFE9F06);
   static const chartBorder = Color(0xFFDC5100);
   static const popupYellowText = Color(0xFFFFCD00);
-  static const yellowBorder = Color (0xFF);
 
   static const goldenYellow =  Color(0xFFFFD700);
 

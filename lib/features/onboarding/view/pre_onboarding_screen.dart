@@ -28,7 +28,7 @@ class PreOnboardingScreen extends StatelessWidget {
             child: Container(
               height: 350,
               margin: const EdgeInsets.symmetric(horizontal: 34),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 34),
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
@@ -40,7 +40,7 @@ class PreOnboardingScreen extends StatelessWidget {
                 child: Text(
                   AppTexts.preOnboardingTitle,
                   textAlign: TextAlign.center,
-                  style: AppStyles.onboardingMainText,
+                  style: AppStyles.onboardingMainText.copyWith(fontSize: 16),
                 ),
               ),
             ),

@@ -2,14 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_styles.dart';
 import '../../../core/constants/app_text.dart';
+import '../../../core/services/storage_service.dart';
 import '../../main/view/main_screen.dart';
-import '../bloc/onboarding/bloc.dart';
-import '../bloc/onboarding/event.dart';
-import '../bloc/onboarding/state.dart';
 
 class PostOnboardingScreen extends StatefulWidget {
   static const routeName = '/post_onboarding';
@@ -32,6 +29,9 @@ class _PostOnboardingScreenState extends State<PostOnboardingScreen> {
   @override
   void initState() {
     super.initState();
+    final storage = StorageService();
+    _savingCtrl.text = storage.getSavingGoal() ?? '';
+    _limitCtrl.text = storage.getLimitGoal() ?? '';
     _savingFocus.addListener(() {
       if (_savingFocus.hasFocus) _ensureVisible(_savingKey);
     });
@@ -80,38 +80,10 @@ class _PostOnboardingScreenState extends State<PostOnboardingScreen> {
             child: Container(color: AppColors.mainBlack.withOpacity(0.25)),
           ),
           SafeArea(
-            child: BlocBuilder<OnboardingBloc, OnboardingState>(
-              builder: (context, state) {
-                final s = state is PostOnboardingState
-                    ? state
-                    : PostOnboardingState();
-                // keep controllers in sync with state
-                final savingText = s.goalAmount ?? '';
-                final limitText = s.limitAmount ?? '';
-                if (_savingCtrl.text != savingText) {
-                  _savingCtrl.text = savingText;
-                  _savingCtrl.selection = TextSelection.collapsed(
-                    offset: _savingCtrl.text.length,
-                  );
-                }
-                if (_limitCtrl.text != limitText) {
-                  _limitCtrl.text = limitText;
-                  _limitCtrl.selection = TextSelection.collapsed(
-                    offset: _limitCtrl.text.length,
-                  );
-                }
-                // focus requested field and ensure visible
-                if (s.goalType == GoalType.saving && !_savingFocus.hasFocus) {
-                  _savingFocus.requestFocus();
-                  _ensureVisible(_savingKey);
-                } else if (s.goalType == GoalType.limit &&
-                    !_limitFocus.hasFocus) {
-                  _limitFocus.requestFocus();
-                  _ensureVisible(_limitKey);
-                }
-
-                final saved = s.saved;
+            child: Builder(
+              builder: (context) {
                 final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+                final size = MediaQuery.of(context).size;
 
                 return GestureDetector(
                   behavior: HitTestBehavior.translucent,
@@ -127,9 +99,7 @@ class _PostOnboardingScreenState extends State<PostOnboardingScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 32),
                           child: Text(
-                            saved
-                                ? AppTexts.postOnboardingTitle1
-                                : AppTexts.postOnboardingTitle2,
+                            AppTexts.postOnboardingTitle2,
                             textAlign: TextAlign.center,
                             style: AppStyles.yellowText.copyWith(fontSize: 20),
                           ),
@@ -141,15 +111,12 @@ class _PostOnboardingScreenState extends State<PostOnboardingScreen> {
                             key: _savingKey,
                             child: _GoalCard(
                               title: AppTexts.savingGoal,
+                              hintText: AppTexts.yourGoal,
                               controller: _savingCtrl,
                               focusNode: _savingFocus,
-                              editing: s.goalType == GoalType.saving && !saved,
-                              onTapTitle: () => context
-                                  .read<OnboardingBloc>()
-                                  .add(UpdateGoalType(GoalType.saving)),
-                              onChanged: (v) => context
-                                  .read<OnboardingBloc>()
-                                  .add(UpdateGoalAmount(v)),
+                              editing: true,
+                              onTapTitle: () => _savingFocus.requestFocus(),
+                              onChanged: (v) {},
                             ),
                           ),
                         ),
@@ -160,60 +127,42 @@ class _PostOnboardingScreenState extends State<PostOnboardingScreen> {
                             key: _limitKey,
                             child: _GoalCard(
                               title: AppTexts.spendingLimit,
+                              hintText: AppTexts.spendingLimit,
                               controller: _limitCtrl,
                               focusNode: _limitFocus,
-                              editing: s.goalType == GoalType.limit && !saved,
-                              onTapTitle: () => context
-                                  .read<OnboardingBloc>()
-                                  .add(UpdateGoalType(GoalType.limit)),
-                              onChanged: (v) => context
-                                  .read<OnboardingBloc>()
-                                  .add(UpdateLimitAmount(v)),
+                              editing: true,
+                              onTapTitle: () => _limitFocus.requestFocus(),
+                              onChanged: (v) {},
                             ),
                           ),
                         ),
                         const SizedBox(height: 20),
-                        if (!saved)
-                          GestureDetector(
-                            onTap: () {
-                              context.read<OnboardingBloc>().add(SaveGoal());
-                              FocusScope.of(context).unfocus();
-                            },
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Image.asset(
-                                  'assets/general_buttons/onboarding_button.webp',
-                                  width: size.width * 0.5,
-                                ),
-                                Text(
-                                  AppTexts.save,
-                                  style: AppStyles.onboardingNavButton,
-                                ),
-                              ],
-                            ),
-                          )
-                        else
-                          GestureDetector(
-                            onTap: () =>
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                  MainScreen.routeName,
-                                  (route) => false,
-                                ),
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Image.asset(
-                                  'assets/general_buttons/onboarding_button.webp',
-                                  width: size.width * 0.6,
-                                ),
-                                Text(
-                                  AppTexts.main,
-                                  style: AppStyles.onboardingNavButton,
-                                ),
-                              ],
-                            ),
+                        GestureDetector(
+                          onTap: () async {
+                            final storage = StorageService();
+                            await storage.setSavingGoal(_savingCtrl.text);
+                            await storage.setLimitGoal(_limitCtrl.text);
+                            FocusScope.of(context).unfocus();
+                            if (!context.mounted) return;
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                              MainScreen.routeName,
+                              (route) => false,
+                            );
+                          },
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/general_buttons/onboarding_button.webp',
+                                width: size.width * 0.6,
+                              ),
+                              Text(
+                                AppTexts.main,
+                                style: AppStyles.onboardingNavButton,
+                              ),
+                            ],
                           ),
+                        ),
                         const SizedBox(height: 24),
                       ],
                     ),
@@ -235,6 +184,7 @@ class _GoalCard extends StatelessWidget {
   final bool editing;
   final VoidCallback onTapTitle;
   final ValueChanged<String> onChanged;
+  final String hintText;
 
   const _GoalCard({
     required this.title,
@@ -243,6 +193,7 @@ class _GoalCard extends StatelessWidget {
     required this.editing,
     required this.onTapTitle,
     required this.onChanged,
+    required this.hintText,
   });
 
   @override
@@ -270,17 +221,19 @@ class _GoalCard extends StatelessWidget {
                 const SizedBox(height: 10),
                 if (editing)
                   SizedBox(
-                    width: size.width * 0.55,
+                    width: size.width * 0.45,
                     child: TextField(
                       controller: controller,
                       focusNode: focusNode,
-                      autofocus: true,
+                      autofocus: false,
                       maxLength: 6,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.number,
                       style: AppStyles.statList,
                       decoration: InputDecoration(
+                        hintText: hintText,
+                        hintStyle: AppStyles.statList.copyWith(fontSize: 12),
                         counterText: '',
                         contentPadding: const EdgeInsets.symmetric(
                           vertical: 12,

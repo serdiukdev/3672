@@ -44,9 +44,9 @@ class OnboardingQuiz extends StatelessWidget {
                       Expanded(
                         child: Center(
                           child: Container(
-                            height: size.height * 0.3,
-                            margin: const EdgeInsets.symmetric(horizontal: 34),
-                            padding: const EdgeInsets.all(26),
+                            height: size.height * 0.34,
+                            margin: const EdgeInsets.symmetric(horizontal: 14,),
+                            padding: const EdgeInsets.all(34),
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage(

@@ -42,7 +42,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _showAvatarSheet() async {
-    await showModalBottomSheet(
+    final choice = await showModalBottomSheet<String>(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (ctx) {
@@ -55,19 +55,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
             children: [
               _buildSheetButton(
                 label: AppTexts.gallery,
-                onTap: () async {
-                  await _bloc.pickAvatar(ImageSource.gallery);
-                  if (!mounted) return;
-                  Navigator.of(ctx).pop();
+                onTap: () {
+                  Navigator.of(ctx).pop('gallery');
                 },
               ),
               const SizedBox(height: 8),
               _buildSheetButton(
                 label: AppTexts.camera,
-                onTap: () async {
-                  await _bloc.pickAvatar(ImageSource.camera);
-                  if (!mounted) return;
-                  Navigator.of(ctx).pop();
+                onTap: () {
+                  Navigator.of(ctx).pop('camera');
                 },
               ),
               const SizedBox(height: 8),
@@ -80,6 +76,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
         );
       },
     );
+
+    if (!mounted) return;
+
+    if (choice == 'gallery') {
+      await _bloc.pickAvatar(ImageSource.gallery);
+    } else if (choice == 'camera') {
+      await Future.delayed(const Duration(milliseconds: 100));
+      await _bloc.pickAvatar(ImageSource.camera);
+    }
   }
 
   Widget _buildSheetButton({
