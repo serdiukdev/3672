@@ -143,7 +143,7 @@ class _AddNotesExpenseState extends State<AddNotesExpense> {
           onPressed: () async{_dateController.clear();
           _amountController.clear();
           _notesController.clear();
-          await _storage.clearDraftIncome();
+          await _storage.clearDraftExpense();
           if (!mounted) return;
           context.pushNamedAndRemoveUntil(ChooseCategoryExpense.routeName);
           },
