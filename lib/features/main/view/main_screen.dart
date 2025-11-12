@@ -189,37 +189,72 @@ class _MainScreenState extends State<MainScreen>
                               ),
                             ),
                             // Daily bonus button + text
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                GestureDetector(
-                                  onTap: () async {
-                                    await Navigator.of(
-                                      context,
-                                    ).pushNamed(DailyBonusScreen.routeName);
-                                    await _loadDailyBonusHint();
-                                  },
-                                  child: Image.asset(
-                                    'assets/general_buttons/daily_bonus_button.webp',
-                                    height: 58,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Visibility(
-                                  visible: _showDailyBonusHint,
-                                  child: Text(
-                                    AppTexts.getBonus,
-                                    textAlign: TextAlign.center,
-                                    style: AppStyles.yellowText.copyWith(
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            // Column(
+                            //   crossAxisAlignment: CrossAxisAlignment.center,
+                            //   children: [
+                            //     GestureDetector(
+                            //       onTap: () async {
+                            //         await Navigator.of(
+                            //           context,
+                            //         ).pushNamed(DailyBonusScreen.routeName);
+                            //         await _loadDailyBonusHint();
+                            //       },
+                            //       child: Image.asset(
+                            //         'assets/general_buttons/daily_bonus_button.webp',
+                            //         height: 58,
+                            //       ),
+                            //     ),
+                            //     const SizedBox(height: 4),
+                            //     Visibility(
+                            //       visible: _showDailyBonusHint,
+                            //       child: Text(
+                            //         AppTexts.getBonus,
+                            //         textAlign: TextAlign.center,
+                            //         style: AppStyles.yellowText.copyWith(
+                            //           fontSize: 13,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
                           ],
                         ),
                       ),
+                      Padding(padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () async {
+                                  await Navigator.of(
+                                    context,
+                                  ).pushNamed(DailyBonusScreen.routeName);
+                                  await _loadDailyBonusHint();
+                                },
+                                child: Image.asset(
+                                  'assets/general_buttons/daily_bonus_button.webp',
+                                  height: 65,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Visibility(
+                                visible: _showDailyBonusHint,
+                                child: Text(
+                                  AppTexts.getBonus,
+                                  textAlign: TextAlign.center,
+                                  style: AppStyles.yellowText.copyWith(
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),),
                       const Spacer(),
 
                       // Basket with dynamic fill

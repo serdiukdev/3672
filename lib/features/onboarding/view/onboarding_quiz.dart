@@ -38,46 +38,65 @@ class OnboardingQuiz extends StatelessWidget {
                 if (state is QuizQuestionState) {
                   final q = state.question;
                   final List answers = q['answers'] as List;
-                  return Column(mainAxisAlignment: MainAxisAlignment.center,
+                  return Stack(
                     children: [
-                      SizedBox(height: size.height * 0.1),
-                      Expanded(
-                        child: Center(
-                          child: Container(
-                            height: size.height * 0.34,
-                            margin: const EdgeInsets.symmetric(horizontal: 14,),
-                            padding: const EdgeInsets.all(34),
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                  'assets/bg_components/onboarding_item_bg.webp',
-                                ),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                q['chickenQuestion'] as String,
-                                textAlign: TextAlign.center,
-                                style: AppStyles.onboardingMainText,
+                      Positioned(top:20, left: 0, right: 0,
+                        child: Container(
+                          height: size.height * 0.3,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                'assets/bg_in_game/character.webp',
                               ),
                             ),
                           ),
                         ),
                       ),
-                      ...answers.map((a) {
-                        final id = a['id'] as String;
-                        final selected = state.selectedId == id;
-                        return _AnswerOption(
-                          label: '${id}.  ${a['text']}',
-                          selected: selected,
-                          onTap: () => context.read<OnboardingBloc>().add(
-                            SelectAnswer(index: state.index, selectedId: id),
+                      Align(alignment: Alignment.center,
+                        child: SingleChildScrollView(
+                          child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(height: size.height * 0.2),
+                              Center(
+                                child: Container(
+                                  height: size.height * 0.34,
+                                  margin: const EdgeInsets.symmetric(horizontal: 14,),
+                                  padding: const EdgeInsets.all(34),
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        'assets/bg_components/onboarding_item_bg.webp',
+                                      ),
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      q['chickenQuestion'] as String,
+                                      textAlign: TextAlign.center,
+                                      style: AppStyles.onboardingMainText,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              ...answers.map((a) {
+                                final id = a['id'] as String;
+                                final selected = state.selectedId == id;
+                                return _AnswerOption(
+                                  label: '${id}.  ${a['text']}',
+                                  selected: selected,
+                                  onTap: () => context.read<OnboardingBloc>().add(
+                                    SelectAnswer(index: state.index, selectedId: id),
+                                  ),
+                                );
+                              }),
+                              const SizedBox(height: 24),
+                              _ProgressDots(current: state.index, total: 5),
+                              const SizedBox(height: 24),
+                            ],
                           ),
-                        );
-                      }),
-                      const SizedBox(height: 12),
-                      _ProgressDots(current: state.index, total: 5),
-                      const SizedBox(height: 24),
+                        ),
+                      ),
                     ],
                   );
                 }
@@ -91,25 +110,23 @@ class OnboardingQuiz extends StatelessWidget {
                   return Column(
                     children: [
                       const SizedBox(height: 40),
-                      Expanded(
-                        child: Center(
-                          child: Container(
-                            height: size.height * 0.3,
-                            margin: const EdgeInsets.symmetric(horizontal: 34),
-                            padding: const EdgeInsets.all(26),
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                  'assets/bg_components/onboarding_item_bg.webp',
-                                ),
+                      Center(
+                        child: Container(
+                          height: size.height * 0.3,
+                          margin: const EdgeInsets.symmetric(horizontal: 34),
+                          padding: const EdgeInsets.all(26),
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                'assets/bg_components/onboarding_item_bg.webp',
                               ),
                             ),
-                            child: Center(
-                              child: Text(
-                                a['chickenReply'] as String,
-                                textAlign: TextAlign.center,
-                                style: AppStyles.onboardingMainText,
-                              ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              a['chickenReply'] as String,
+                              textAlign: TextAlign.center,
+                              style: AppStyles.onboardingMainText,
                             ),
                           ),
                         ),
@@ -131,9 +148,11 @@ class OnboardingQuiz extends StatelessWidget {
                               'assets/general_buttons/onboarding_button.webp',
                               width: size.width * 0.65,
                             ),
-                            Text(
-                              AppTexts.next,
-                              style: AppStyles.onboardingNavButton,
+                            Center(
+                              child: Text(
+                                AppTexts.next,
+                                style: AppStyles.onboardingNavButton.copyWith(color: AppColors.mainBLue),
+                              ),
                             ),
                           ],
                         ),

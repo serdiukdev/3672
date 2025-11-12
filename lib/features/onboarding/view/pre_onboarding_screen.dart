@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:itd_2/core/constants/app_colors.dart';
 import '../../../core/constants/app_styles.dart';
 import '../../../core/constants/app_text.dart';
 import '../bloc/onboarding/bloc.dart';
@@ -59,7 +60,12 @@ class PreOnboardingScreen extends StatelessWidget {
                     'assets/general_buttons/onboarding_button.webp',
                     width: size.width * 0.65,
                   ),
-                  Text(AppTexts.start, style: AppStyles.onboardingNavButton),
+                  Text(
+                    AppTexts.start,
+                    style: AppStyles.onboardingNavButton.copyWith(
+                      color: AppColors.mainBLue,
+                    ),
+                  ),
                 ],
               ),
             ),

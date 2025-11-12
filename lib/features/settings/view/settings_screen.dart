@@ -171,14 +171,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           child: Container(
                             width: size.width * 0.32,
                             height: size.width * 0.32,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: AppColors.chartBorder,
-                                width: 5,
-                              ),
-                            ),
-                            clipBehavior: Clip.antiAlias,
+                            
                             child: state.avatarPath != null
                                 ? ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
@@ -266,17 +259,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                       ),
                       SizedBox(height: size.height * 0.02),
-                      _NavButton(
-                        label: AppTexts.privacy,
-                        onTap: () => context.pushNamedAndRemoveUntil(
-                          PrivacyPolicy.routeName,
+                      SizedBox(height: size.height*0.1,
+                        width: size.width*0.7,
+                        child: IconButton(
+                          icon: Image.asset('assets/general_buttons/privacy_button.webp'),
+                          onPressed: () => context.pushNamedAndRemoveUntil(
+                            PrivacyPolicy.routeName,
+                          ),
                         ),
                       ),
                       SizedBox(height: size.height * 0.015),
-                      _NavButton(
-                        label: AppTexts.termsOfUse,
-                        onTap: () => context.pushNamedAndRemoveUntil(
-                          TermsOfUse.routeName,
+                      SizedBox(height: size.height*0.1,
+                        width: size.width*0.7,
+                        child: IconButton(
+                          icon: Image.asset('assets/general_buttons/terms_button.webp'),
+                          onPressed: () => context.pushNamedAndRemoveUntil(
+                            TermsOfUse.routeName,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 24),
@@ -324,7 +323,7 @@ class _SettingTile extends StatelessWidget {
             value: value,
             onChanged: onChanged,
             activeColor: AppColors.mainWhite,
-            activeTrackColor: AppColors.mainGreen,
+            activeTrackColor: AppColors.mainBLue,
           ),
         ],
       ),

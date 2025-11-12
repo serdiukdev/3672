@@ -158,7 +158,7 @@ class _PostOnboardingScreenState extends State<PostOnboardingScreen> {
                               ),
                               Text(
                                 AppTexts.main,
-                                style: AppStyles.onboardingNavButton,
+                                style: AppStyles.onboardingNavButton.copyWith(color: AppColors.mainBLue),
                               ),
                             ],
                           ),

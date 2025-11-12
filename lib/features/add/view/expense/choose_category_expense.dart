@@ -51,6 +51,7 @@ class _ChooseCategoryExpenseState extends State<ChooseCategoryExpense> {
     ];
 
     return Scaffold(
+      extendBody: true,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -83,7 +84,7 @@ class _ChooseCategoryExpenseState extends State<ChooseCategoryExpense> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Container(
+                child: Container(decoration: BoxDecoration(color: AppColors.topOrangeBG),
                   width: double.infinity,
                   child: Center(
                     child: Text(

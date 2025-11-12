@@ -87,7 +87,7 @@ class _ShopScreenState extends State<ShopScreen> {
 
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
-            child: Container(color: AppColors.mainBlack.withOpacity(0.3)),
+            child: Container(color: AppColors.mainBlack.withOpacity(0.6)),
           ),
           SafeArea(
             child: Padding(
@@ -332,6 +332,7 @@ class _ShopItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -347,7 +348,8 @@ class _ShopItemTile extends StatelessWidget {
             Expanded(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.asset(item.assetPath, fit: BoxFit.contain),
+                child: Container(height: size.height*0.32, width:  size.width*0.32,
+                    child: Image.asset(item.assetPath, fit: BoxFit.fitWidth)),
               ),
             ),
             const SizedBox(height: 6),
