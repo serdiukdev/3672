@@ -1,0 +1,180 @@
+name: Publish ios metadata
+
+on:
+  workflow_dispatch:
+
+env:
+  FLUTTER_VERSION: "3.32.8"
+
+jobs:
+  build:
+    name: Upload metadata
+    runs-on: macos-14
+    environment: production
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          bundler-cache: true
+
+      - name: Select Xcode version
+        run: sudo xcode-select -s '/Applications/Xcode_16.2.app/Contents/Developer'
+
+
+      - name: Install the Apple certificate and provisioning profile
+        shell: bash
+        run: |
+          eval "$(ssh-agent -s)"
+          ssh-add - <<< "${MATCH_DEPLOY_KEY}"
+          bundle exec fastlane ios sync_certificates
+        env:
+          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+          APPSTORE_P8: ${{ secrets.APPSTORE_P8 }}
+
+          IOS_BUNDLE_ID: ${{ vars.IOS_BUNDLE_ID }}
+
+          GH_PAT: ${{ secrets.GH_PAT }}
+          GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
+          MATCH_REPOSITORY: ${{ secrets.MATCH_REPOSITORY }}
+          MATCH_DEPLOY_KEY: ${{ secrets.MATCH_DEPLOY_KEY }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+
+      - name: Install required dependencies
+        run: |
+          gem install fastlane-plugin-appicon
+
+      - name: Validate directory structure
+        run: |
+          echo "===== Validating Screenshots ====="
+          # Check that screenshots folder exists
+          if [ ! -d "./fastlane/screenshots" ]; then
+            echo "ERROR: Screenshots directory not found at ./fastlane/screenshots"
+            exit 1
+          fi
+          
+          # List and count all locale folders
+          LOCALE_FOLDERS=$(find ./fastlane/screenshots -maxdepth 1 -type d | grep -v "^./fastlane/screenshots$" | wc -l)
+          echo "Found $LOCALE_FOLDERS locale folders in screenshots directory"
+          find ./fastlane/screenshots -maxdepth 1 -type d | grep -v "^./fastlane/screenshots$" | sort | while read LOCALE_DIR; do
+            LOCALE=$(basename "$LOCALE_DIR")
+            echo "Processing locale: $LOCALE"
+            
+            # Check for iPhone folder in each locale
+            IPHONE_FOLDERS=$(find "$LOCALE_DIR" -type d -name "iPhone*" | wc -l)
+
+            if [ "$IPHONE_FOLDERS" -eq 0 ]; then
+              echo "WARNING: No iPhone screenshot folders found in $LOCALE_DIR"
+            else
+              echo "Found $IPHONE_FOLDERS iPhone screenshot folders in $LOCALE"
+            fi
+            
+            # Count screenshots in each device folder
+            find "$LOCALE_DIR" -type d | grep -v "^$LOCALE_DIR$" | while read DEVICE_FOLDER; do
+              if [ -d "$DEVICE_FOLDER" ]; then
+                COUNT=$(find "$DEVICE_FOLDER" -type f -name "*.jpg" | wc -l)
+                echo "  - Found $COUNT screenshots in $(basename "$DEVICE_FOLDER")"
+              fi
+            done
+          done
+          
+          # Require en-US locale at minimum
+          if [ ! -d "./fastlane/screenshots/en-US" ]; then
+            echo "ERROR: Required en-US locale directory is missing in screenshots"
+            exit 1
+          fi
+          
+          # Verify en-US has at least one iPhone folder
+          IPHONE_FOLDERS=$(find "./fastlane/screenshots/en-US" -type d -name "iPhone*" | wc -l)
+          
+          if [ "$IPHONE_FOLDERS" -eq 0 ]; then
+            echo "ERROR: No iPhone screenshot folders found in en-US locale"
+            exit 1
+          fi
+          
+          echo "===== Validating Metadata ====="
+          # Check that metadata folder exists
+          if [ ! -d "./fastlane/metadata" ]; then
+            echo "ERROR: Metadata directory not found at ./fastlane/metadata"
+            exit 1
+          fi
+          
+          # Check that en-US folder exists (primary required locale)
+          if [ ! -d "./fastlane/metadata/en-US" ]; then
+            echo "ERROR: No en-US metadata folder found in ./fastlane/metadata"
+            exit 1
+          fi
+          
+          # List and count all locale folders
+          echo "Scanning metadata locales..."
+          find ./fastlane/metadata -maxdepth 1 -type d | grep -v "^./fastlane/metadata$" | grep -v "review_information" | sort | while read LOCALE_DIR; do
+            LOCALE=$(basename "$LOCALE_DIR")
+            echo "Processing metadata locale: $LOCALE"
+            
+            # Check for required metadata files in each locale
+            REQUIRED_FILES=("name.txt" "description.txt" "keywords.txt")
+            MISSING=0
+            for FILE in "${REQUIRED_FILES[@]}"; do
+              if [ ! -f "$LOCALE_DIR/$FILE" ]; then
+                echo "  - WARNING: $FILE is missing in $LOCALE"
+                MISSING=$((MISSING+1))
+              fi
+            done
+            
+            if [ $MISSING -eq 0 ]; then
+              echo "  - All required files present in $LOCALE"
+            else
+              echo "  - $MISSING required files missing in $LOCALE"
+            fi
+          done
+          
+          # Verify required files exist in en-US (this is a must)
+          REQUIRED_FILES=("name.txt" "description.txt" "keywords.txt" "privacy_url.txt" "support_url.txt")
+          for FILE in "${REQUIRED_FILES[@]}"; do
+            if [ ! -f "./fastlane/metadata/en-US/$FILE" ]; then
+              echo "ERROR: Required metadata file ./fastlane/metadata/en-US/$FILE is missing"
+              exit 1
+            fi
+          done
+          
+          # Count language folders
+          LANGUAGE_FOLDERS=$(find ./fastlane/metadata -maxdepth 1 -type d | grep -v "^./fastlane/metadata$" | grep -v "review_information" | wc -l)
+          echo "Found $LANGUAGE_FOLDERS language folders in metadata"
+          
+          # Check for review_information
+          if [ -d "./fastlane/metadata/review_information" ]; then
+            echo "Review information folder found"
+            REVIEW_FILES=$(find "./fastlane/metadata/review_information" -type f | wc -l)
+            echo "Found $REVIEW_FILES files in review_information"
+          else
+            echo "WARNING: No review_information folder found - this might be needed for new app submissions"
+          fi
+          
+          echo "Metadata validation successful!"
+
+      - name: Run fastlane
+        env:
+          APPLE_CONNECT_EMAIL: ${{ secrets.APPLE_EMAIL }}
+          APPLE_DEVELOPER_EMAIL: ${{ secrets.APPLE_EMAIL }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+
+          MATCH_REPOSITORY: ${{ secrets.MATCH_REPOSITORY }}
+          MATCH_DEPLOY_KEY: ${{ secrets.MATCH_DEPLOY_KEY }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+
+          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+          APPSTORE_P8: ${{ secrets.APPSTORE_P8 }}
+
+          IOS_BUILD_PATH: ${{ github.workspace }}
+          IOS_BUNDLE_ID: ${{ vars.IOS_BUNDLE_ID }}
+          PROJECT_NAME: ${{ vars.APP_NAME }}
+        run: |
+          eval "$(ssh-agent -s)"
+          ssh-add - <<< "${MATCH_DEPLOY_KEY}"
+          bundle install
+          
+          # Run the upload task
+          bundle exec fastlane ios upload_metadata
