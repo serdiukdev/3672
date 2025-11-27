@@ -1,6 +1,5 @@
 class AppTexts {
-  static const appAndroidTitle = 'Android fin chicken';
-  static const appIosTitle = 'apple fin chicken';
+  static const appIosTitle = 'Eggconomy';
 
   static const loading = 'LOADING...';
   static const settings = 'Settings';

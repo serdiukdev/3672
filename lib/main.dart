@@ -46,9 +46,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: Platform.isAndroid
-            ? AppTexts.appAndroidTitle
-            : AppTexts.appIosTitle,
+        title: AppTexts.appIosTitle,
         theme: ThemeData(
           primarySwatch: Colors.brown,
           scaffoldBackgroundColor: AppColors.mainBLue,

@@ -26,7 +26,7 @@ class _TermsOfUseState extends State<TermsOfUse> {
 
   @override
   void initState() {
-    terms = Platform.isAndroid ? 'https://google.com' : 'https://google.com';
+    terms = 'https://doc-hosting.flycricket.io/eggconomy-terms-of-use/30d0c176-e16f-4c21-9c1c-7ba0bc89e700/terms';
     super.initState();
   }
 

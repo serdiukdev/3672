@@ -26,7 +26,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
 
   @override
   void initState() {
-    privacy = Platform.isAndroid ? 'https://google.com' : 'https://google.com';
+    privacy = 'https://doc-hosting.flycricket.io/eggconomy-privacy-policy/795e7835-908f-4ebd-a2e0-7770f6694915/privacy';
     super.initState();
   }
 
