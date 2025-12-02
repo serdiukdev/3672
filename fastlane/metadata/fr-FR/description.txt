@@ -1,0 +1,9 @@
+Eggconomy est un outil de suivi d'épargne qui vous aide à atteindre vos objectifs financiers en simplifiant la gestion de votre budget et en vous offrant une meilleure visibilité sur vos habitudes de dépenses. Au départ, choisissez votre objectif d'épargne et votre limite de dépenses, ajoutez vos revenus et vos dépenses tout au long du mois et suivez en direct votre progression vers votre objectif sur l'écran principal !
+
+De plus, un quiz sur votre profil financier vous permet de personnaliser les affirmations et les conseils quotidiens.
+
+Enregistrer vos dépenses et vos revenus est simple : cliquez sur le bouton « + » et sélectionnez des catégories parmi les suivantes : Salaire, Investissements, Travail à temps partiel, Primes, Shopping, Restaurants et cafés, Factures, Loisirs, Éducation, Transports, Santé, Animaux de compagnie, Cadeaux, etc. N'oubliez pas d'indiquer le montant, la date et d'ajouter des notes pour une comptabilité claire.
+
+Pour une analyse plus approfondie, consultez la section « Statistiques » de l'application où vous trouverez différents graphiques de vos dépenses. Cet outil de visualisation clair vous aide à comprendre l'impact de chaque catégorie sur votre objectif. Ne sous-estimez pas le pouvoir de la visualisation !
+
+Alors, qu'attendez-vous ? Commencez dès maintenant à établir votre budget avec Eggconomy !

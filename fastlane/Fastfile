@@ -1,295 +1,118 @@
-
-org, repo = (ENV["GITHUB_REPOSITORY"]||"").split("/")
-match_org, match_repo = (ENV["MATCH_REPOSITORY"]||"").split("/")
-
 platform :ios do
-  lane :init_ci do
-    setup_ci
-    github_action(
-      api_token: ENV["GH_PAT"],
-      org: org,
-      repo: repo,
-      match_org: match_org,
-      match_repo: match_repo,
-      writable_deploy_key: true
-    )
-  end
-
-  desc "Sync codesigning certificates"
-  lane :sync_certificates do
+  #######################################################
+  #  Upload metadata (Codemagic → App Store Connect)
+  #######################################################
+  desc "Upload metadata"
+  lane :upload_metadata do
     app_store_connect_api_key(
       key_id: ENV["APPSTORE_KEY_ID"],
       issuer_id: ENV["APPSTORE_ISSUER_ID"],
-      key_content: ENV['APPSTORE_P8']
+      key_content: ENV["APPSTORE_P8"]
     )
 
-    match(
-      type: "appstore",
-      storage_mode: "git",
-      git_url: "git@github.com:#{match_org}/#{match_repo}.git",
+    UI.message("Current directory: #{Dir.pwd}")
+
+    possible_metadata_paths = [
+      "metadata",
+      "./metadata",
+      "../metadata",
+      "./fastlane/metadata",
+      "../fastlane/metadata"
+    ]
+
+    metadata_path = nil
+    possible_metadata_paths.each do |path|
+      if Dir.exist?(path)
+        metadata_path = path
+        UI.success("Found metadata path: #{path}")
+        break
+      end
+    end
+
+    if metadata_path.nil?
+      UI.user_error!("Cannot find metadata path. Tried: #{possible_metadata_paths.join(', ')}")
+    else
+      UI.message("Metadata folder contents: #{Dir.entries(metadata_path).join(', ')}")
+
+      en_us_path = File.join(metadata_path, "en-US")
+      if Dir.exist?(en_us_path)
+        UI.message("Metadata en-US exists and contains: #{Dir.entries(en_us_path).join(', ')}")
+      else
+        UI.error("Missing required en-US metadata folder in #{metadata_path}")
+      end
+    end
+
+    UI.message("APPSTORE_KEY_ID set: #{!ENV['APPSTORE_KEY_ID'].to_s.empty?}")
+    UI.message("APPSTORE_ISSUER_ID set: #{!ENV['APPSTORE_ISSUER_ID'].to_s.empty?}")
+    UI.message("APPSTORE_P8 set: #{!ENV['APPSTORE_P8'].to_s.empty?}")
+    UI.message("Bundle ID: #{ENV['IOS_BUNDLE_ID']}")
+
+    # review_information (опційно, але хай буде)
+    review_info_path = File.join(metadata_path, "review_information")
+    if Dir.exist?(review_info_path)
+      required_files = %w[first_name.txt last_name.txt email_address.txt phone_number.txt]
+      missing_files = []
+      empty_files = []
+
+      required_files.each do |file|
+        file_path = File.join(review_info_path, file)
+        if !File.exist?(file_path)
+          missing_files << file
+        elsif File.zero?(file_path)
+          empty_files << file
+          File.write(file_path, "N/A")
+          UI.message("Added placeholder 'N/A' to empty review info file: #{file}")
+        end
+      end
+
+      UI.error("Missing required review information files: #{missing_files.join(', ')}") if missing_files.any?
+      UI.message("Fixed empty review information files: #{empty_files.join(', ')}") if empty_files.any?
+    else
+      UI.error("Missing review_information directory in metadata path")
+    end
+
+    deliver(
+      app_identifier: ENV["IOS_BUNDLE_ID"],
+      submit_for_review: false,
+      force: true,
+      metadata_path: "fastlane/metadata",
+      skip_app_version_update: true,
+      skip_binary_upload: true,
+      skip_screenshots: true,
+      automatic_release: false,
+      overwrite_screenshots: false,
+      precheck_include_in_app_purchases: false,
+      verbose: true,
+      submission_information: {
+        export_compliance_available_on_french_store: false,
+        export_compliance_contains_proprietary_cryptography: false,
+        export_compliance_contains_third_party_cryptography: false,
+        export_compliance_is_exempt: false,
+        export_compliance_uses_encryption: false,
+        export_compliance_app_type: nil,
+        export_compliance_encryption_updated: false,
+        export_compliance_compliance_required: false,
+        export_compliance_platform: "ios",
+        content_rights_contains_third_party_content: false,
+        content_rights_has_rights: false,
+        add_id_info_limits_tracking: false,
+        add_id_info_serves_ads: false,
+        add_id_info_tracks_action: false,
+        add_id_info_tracks_install: false,
+        add_id_info_uses_idfa: true
+      },
+      app_review_information: {
+        first_name: "Valeriia",
+        last_name: "Serdiuk",
+        phone_number: "+380995014370",
+        email_address: "webelll.app@gmail.com"
+      },
+      reject_if_possible: false,
+      run_precheck_before_submit: true,
+      precheck_include_in_app_purchases: false,
+      submit_for_review: false, # temporary
+      automatic_release: true,
+      precheck_default_rule_level: ":warn"
     )
   end
-
-  desc "Deliver a new Release build to the App Store"
-    lane :release do
-      build
-      upload_to_app_store
-    end
-
-    desc "Deliver a new Beta build to Apple TestFlight"
-    lane :beta do
-      # Missing Export Compliance can also be set through Deliverfile
-      update_info_plist(
-        xcodeproj: "#{ENV['IOS_BUILD_PATH']}/ios/Runner.xcodeproj",
-        plist_path: 'Runner/Info.plist',
-        block: proc do |plist|
-          plist['ITSAppUsesNonExemptEncryption'] = false
-        end
-      )
-      build
-      upload_to_testflight(skip_waiting_for_build_processing: true)
-    end
-
-    desc "Create .ipa"
-    lane :build do
-      cocoapods(
-        clean_install: true,
-        podfile: "#{ENV['IOS_BUILD_PATH']}/ios/",
-        try_repo_update_on_error: true,
-        allow_root: true
-      )
-
-      setup_ci
-
-      sync_certificates
-
-      # Unity has specific requirements around codesigning that we have to handle
-      # See https://github.com/fastlane/fastlane/discussions/17458 for context
-      update_code_signing_settings(
-        use_automatic_signing: true,
-        path: "#{ENV['IOS_BUILD_PATH']}/ios/Runner.xcodeproj"
-      )
-
-      update_code_signing_settings(
-        use_automatic_signing: false,
-        team_id: ENV["sigh_#{ENV['IOS_BUNDLE_ID']}_appstore_team-id"],
-        code_sign_identity: 'iPhone Distribution',
-        targets: 'Runner',
-        path: "#{ENV['IOS_BUILD_PATH']}/ios/Runner.xcodeproj",
-        profile_name: ENV["sigh_#{ENV['IOS_BUNDLE_ID']}_appstore_profile-name"],
-        profile_uuid: ENV["sigh_#{ENV['IOS_BUNDLE_ID']}_appstore"]
-      )
-
-      build_app( #alias: gym
-        workspace: "#{ENV['IOS_BUILD_PATH']}/ios/Runner.xcworkspace",
-        scheme: 'Runner',
-        xcargs: '-allowProvisioningUpdates'
-      )
-    end
-
-   desc "Upload metadata"
-    lane :upload_metadata do
-        setup_ci
-
-        sync_certificates
-
-        app_store_connect_api_key(
-           key_id: ENV["APPSTORE_KEY_ID"],
-           issuer_id: ENV["APPSTORE_ISSUER_ID"],
-           key_content: ENV['APPSTORE_P8']
-        )
-
-        # Verify that the screenshots directory exists
-        unless Dir.exist?("./screenshots")
-          UI.user_error!("Screenshots directory not found at ./screenshots")
-        end
-        
-        # Scan all locales in the screenshots folder
-        locale_dirs = Dir.glob("./screenshots/*").select { |f| File.directory?(f) }
-        UI.success("Found #{locale_dirs.size} locale directories in screenshots folder")
-        
-        locale_dirs.each do |locale_dir|
-          locale = File.basename(locale_dir)
-          UI.message("Processing locale: #{locale}")
-          
-          # Check for iPhone folders in this locale
-          iphone_folders = Dir.glob("#{locale_dir}/iPhone*")
-          
-          if iphone_folders.empty?
-            UI.message("  - Warning: No iPhone screenshot folders found in #{locale}")
-          else
-            UI.message("  - Found #{iphone_folders.size} iPhone screenshot folders in #{locale}")
-          end
-          
-
-          # Count screenshots in each device folder
-          (iphone_folders).each do |device_folder|
-            screenshot_count = Dir.glob("#{device_folder}/*.{jpg,png}").size
-            device_name = File.basename(device_folder)
-            UI.message("    - Found #{screenshot_count} screenshots in #{device_name}")
-          end
-        end
-        
-        # Require en-US locale at minimum
-        unless Dir.exist?("./screenshots/en-US")
-          UI.user_error!("Required en-US locale directory is missing in screenshots")
-        end
-        
-        # Verify en-US has at least one iPhone folder
-        unless Dir.glob("./screenshots/en-US/iPhone*").any?
-          UI.user_error!("No iPhone screenshot folders found in en-US locale")
-        end
-
-        
-        UI.success("Screenshots validation successful!")
-        
-        # Debug info for paths
-        UI.message("Current directory: #{Dir.pwd}")
-        
-        # Try different potential paths for metadata and screenshots
-        possible_metadata_paths = ['metadata', './metadata', '../metadata', './fastlane/metadata', '../fastlane/metadata']
-        possible_screenshots_paths = ['screenshots', './screenshots', '../screenshots', './fastlane/screenshots', '../fastlane/screenshots']
-        
-        # Find valid metadata path
-        metadata_path = nil
-        possible_metadata_paths.each do |path|
-          if Dir.exist?(path)
-            metadata_path = path
-            UI.success("Found metadata path: #{path}")
-            break
-          end
-        end
-        
-        # Find valid screenshots path
-        screenshots_path = nil
-        possible_screenshots_paths.each do |path|
-          if Dir.exist?(path)
-            screenshots_path = path
-            UI.success("Found screenshots path: #{path}")
-            break
-          end
-        end
-        
-        if metadata_path.nil?
-          UI.error("No valid metadata path found! Tried: #{possible_metadata_paths.join(', ')}")
-        else
-          # List top-level metadata files/folders
-          UI.message("Metadata folder contents: #{Dir.entries(metadata_path).join(', ')}")
-          
-          # Check for en-US metadata specifically
-          en_us_path = File.join(metadata_path, 'en-US')
-          if Dir.exist?(en_us_path)
-            UI.message("Metadata en-US exists and contains: #{Dir.entries(en_us_path).join(', ')}")
-          else
-            UI.error("Missing required en-US metadata folder in #{metadata_path}")
-          end
-        end
-        
-        if screenshots_path.nil?
-          UI.error("No valid screenshots path found! Tried: #{possible_screenshots_paths.join(', ')}")
-        end
-        
-        # Check iTunes Connect API key is set
-        UI.message("APPSTORE_KEY_ID set: #{!ENV['APPSTORE_KEY_ID'].nil? && !ENV['APPSTORE_KEY_ID'].empty?}")
-        UI.message("APPSTORE_ISSUER_ID set: #{!ENV['APPSTORE_ISSUER_ID'].nil? && !ENV['APPSTORE_ISSUER_ID'].empty?}")
-        UI.message("APPSTORE_P8 set: #{!ENV['APPSTORE_P8'].nil? && !ENV['APPSTORE_P8'].empty?}")
-        UI.message("Bundle ID: #{ENV['IOS_BUNDLE_ID']}")
-
-        # Use discovered paths in deliver or provide clear error
-        if metadata_path.nil? && screenshots_path.nil?
-          UI.user_error!("Cannot find metadata and screenshots paths. Aborting.")
-        elsif metadata_path.nil?
-          UI.user_error!("Cannot find metadata path. Aborting.")
-        elsif screenshots_path.nil?
-          UI.user_error!("Cannot find screenshots path. Aborting.")
-        else
-          UI.success("Using metadata_path: #{metadata_path} and screenshots_path: #{screenshots_path}")
-          
-          # Verify review information files
-          review_info_path = File.join(metadata_path, 'review_information')
-          if Dir.exist?(review_info_path)
-            required_files = ['first_name.txt', 'last_name.txt', 'email_address.txt', 'phone_number.txt', 'demo_user.txt', 'demo_password.txt', 'notes.txt']
-            missing_files = []
-            empty_files = []
-            
-            required_files.each do |file|
-              file_path = File.join(review_info_path, file)
-              if !File.exist?(file_path)
-                missing_files << file
-              elsif File.zero?(file_path)
-                empty_files << file
-                # Add placeholder content to empty files
-                File.write(file_path, "N/A")
-                UI.message("Added placeholder 'N/A' to empty review info file: #{file}")
-              end
-            end
-            
-            if missing_files.any?
-              UI.error("Missing required review information files: #{missing_files.join(', ')}")
-            end
-            
-            if empty_files.any?
-              UI.message("Fixed empty review information files: #{empty_files.join(', ')}")
-            end
-          else
-            UI.error("Missing review_information directory in metadata path")
-          end
-          
-          deliver(
-            app_identifier:"#{ENV['IOS_BUNDLE_ID']}",
-            submit_for_review: false,
-            force: true,
-            screenshots_path: 'screenshots/en-US',
-            metadata_path: "fastlane/metadata",
-            app_rating_config_path: "fastlane/metadata/ratings_config.json",
-            skip_app_version_update: true,
-            skip_binary_upload: true,
-            skip_screenshots: false,
-            automatic_release: false,
-            overwrite_screenshots: true,
-            precheck_include_in_app_purchases: false,
-            verbose: true,
-            submission_information: {
-                  export_compliance_available_on_french_store: false,
-                  export_compliance_contains_proprietary_cryptography: false,
-                  export_compliance_contains_third_party_cryptography: false,
-                  export_compliance_is_exempt: false,
-                  export_compliance_uses_encryption: false,
-                  export_compliance_app_type: nil,
-                  export_compliance_encryption_updated: false,
-                  export_compliance_compliance_required: false,
-                  export_compliance_platform: "ios",
-                  content_rights_contains_third_party_content: false,
-                  content_rights_has_rights: false,
-                  add_id_info_limits_tracking: false,
-                  add_id_info_serves_ads: false,
-                  add_id_info_tracks_action: false,
-                  add_id_info_tracks_install: false,
-                  add_id_info_uses_idfa: true,
-            },
-            app_review_information: {
-                first_name: "Valeriia",
-                last_name: "Serdiuk",
-                phone_number: "+380995014370",
-                email_address: "webelll.app@gmail.com",
-                demo_username: "",
-                demo_password: "",
-                notes: "
-Hello,
-Please review my app.
-Best regards
-"
-              },
-            reject_if_possible: false,
-            overwrite_screenshots: true,
-            run_precheck_before_submit: true,
-            precheck_include_in_app_purchases: false,
-            submit_for_review: false, #temporary
-            automatic_release: true,
-            precheck_default_rule_level: ":warn", #:error
-            force: true
-          )
-        end
-    end
-
 end

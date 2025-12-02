@@ -1,0 +1,9 @@
+O Eggconomy é um aplicativo de controle de economias que te ajuda a alcançar seus objetivos financeiros, facilitando o planejamento do seu orçamento e fornecendo informações sobre seus hábitos de consumo. Para começar, selecione sua meta de economia e limite de gastos, adicione suas receitas e despesas ao longo do mês e veja atualizações em tempo real na tela principal, mostrando o quão perto você está da sua meta!
+
+Além disso, no início, você encontra um teste de personalidade financeira que determina e personaliza afirmações e dicas diárias para você.
+
+Controlar suas despesas e receitas é fácil: clique no botão de adição (+) e selecione as categorias na lista: Salário, Investimentos, Trabalho de Meio Período, Bônus, Compras, Restaurantes e Cafés, Contas, Entretenimento, Educação, Transporte, Saúde, Animais de Estimação, Presentes e muito mais. Não se esqueça de inserir o valor, a data e observações para manter seus registros organizados.
+
+Para obter informações mais detalhadas, acesse a seção de estatísticas do aplicativo, onde você pode ver diferentes gráficos dos seus gastos. É uma ferramenta de visualização clara que te ajuda a entender o quanto cada categoria te impede de alcançar sua meta. Não subestime o poder da visualização!
+
+Então, o que você está esperando? Comece a planejar seu orçamento agora mesmo com o Eggconomy!

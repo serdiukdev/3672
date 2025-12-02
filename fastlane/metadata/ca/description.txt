@@ -1,0 +1,9 @@
+Eggconomy és un rastrejador d'estalvis que t'ajuda a assolir els teus objectius financers amb estalvis, facilitant la teva pressupostació i proporcionant informació sobre els teus hàbits de despesa. Al principi, selecciona el teu objectiu d'estalvi i el límit de despesa, afegeix els teus ingressos i despeses al llarg del mes i consulta actualitzacions en directe a la pantalla principal de quant a prop estàs del teu objectiu!
+
+A més, al principi tens un qüestionari de personalitat financera que determina i adapta afirmacions i consells diaris a tu.
+
+Mantenir les teves despeses o ingressos és fàcil, fes clic a un botó amb el signe més i selecciona categories de la llista: Salari, Inversions, Temps parcial, Bonificació, Compres, Restaurants i cafeteries, Factures, Entreteniment, Educació, Transport, Salut, Mascotes, Regals i més. No oblidis introduir l'import, la data i les notes per mantenir els teus llibres ordenats.
+
+Per obtenir informació, vés a la part d'estadístiques de l'aplicació, on pots veure diferents gràfics de les teves despeses. És una eina de visualització neta que t'ajuda a entendre quant cada categoria t'allunya del teu objectiu. No subestimis el poder de la visualització!
+
+Aleshores, a què esperes? Comença a fer el teu pressupost ara amb Eggconomy!

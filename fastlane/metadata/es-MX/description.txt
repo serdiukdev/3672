@@ -1,0 +1,9 @@
+Eggconomy es una herramienta de seguimiento de ahorros que te ayuda a alcanzar tus metas financieras, facilitando la elaboración de tu presupuesto y brindándote información sobre tus hábitos de gasto. Al principio, selecciona tu objetivo de ahorro y límite de gasto, añade tus ingresos y gastos a lo largo del mes y consulta actualizaciones en tiempo real en la pantalla principal sobre cuánto te acercas a tu objetivo.
+
+Además, al principio, tienes un test de personalidad financiera que determina y adapta afirmaciones y consejos diarios a tus necesidades.
+
+Registrar tus gastos e ingresos es fácil: haz clic en el botón "+" y selecciona categorías de la lista: Salario, Inversiones, Medio Tiempo, Bonificaciones, Compras, Restaurantes y Cafeterías, Facturas, Entretenimiento, Educación, Transporte, Salud, Mascotas, Regalos y más. No olvides ingresar la cantidad, la fecha y las notas para mantener tus cuentas ordenadas.
+
+Para obtener más información, ve a la sección de estadísticas de la aplicación, donde podrás ver diferentes gráficos de tus gastos. Es una herramienta de visualización clara que te ayuda a comprender cuánto te aleja cada categoría de tu objetivo. ¡No subestimes el poder de la visualización!
+
+¿A qué esperas? ¡Empieza a presupuestar ya con Eggconomy!

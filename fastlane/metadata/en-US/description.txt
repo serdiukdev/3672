@@ -1,0 +1,9 @@
+Eggconomy is an savings tracker that helps you achieve your financial goals with savings by making your budgeting easier and  provinding insight into your spending habits. Ath the start select your savings goal and spending limit add your incomes and expenses throughout the month and see live updates in the main screen how close you are to your goal!
+
+Additionally at the beginning you have a financial personality quiz that determines and tailors daily affirmations and tips to you.
+
+Keepin your expenses or incomes is easy, click a plus button and select categories from the list of: Salary, Investments, Part-Time, Bonus,Shopping, Restaurants & Cafes, Bills, Entertainment, Education, Transport, Health, Pets, Gifts, and more, dont forget to enter the amount, date and notes to keep your books neat.
+
+To gain insight proceed to the stats part of the app where you can see different charts for your spending. It's a clean visualisation tool that help you understand how much each category keeps you away from your goal, don't underestimate the power of visualisation!
+
+So what are you waiting for? Start you budgeting now with Eggconomy!

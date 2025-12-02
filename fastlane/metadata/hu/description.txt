@@ -1,0 +1,9 @@
+Az Eggconomy egy megtakarításkövető, amely segít elérni pénzügyi céljait megtakarításokkal azáltal, hogy megkönnyíti a költségvetés-tervezést és betekintést nyújt a költési szokásaiba. Kezdésként válassza ki megtakarítási célját és költési limitjét, adja hozzá bevételeit és kiadásait a hónap során, és nézze meg az élő frissítéseket a főképernyőn, hogy mennyire van közel a céljához!
+
+Ezenkívül az elején egy pénzügyi személyiségtesztet is kap, amely meghatározza és személyre szabja a napi megerősítéseket és tippeket.
+
+Kiadásai vagy bevételei nyomon követése egyszerű, kattintson egy plusz gombra, és válasszon kategóriákat a listából: Fizetés, Befektetések, Részmunkaidő, Bónusz, Vásárlás, Éttermek és kávézók, Számlák, Szórakozás, Oktatás, Közlekedés, Egészségügy, Háziállatok, Ajándékok és egyebek. Ne felejtse el megadni az összeget, a dátumot és a megjegyzéseket, hogy a könyvelése rendben legyen.
+
+A betekintéshez lépjen az alkalmazás statisztikai részébe, ahol különböző diagramokat láthat a költéseiről. Ez egy letisztult vizualizációs eszköz, amely segít megérteni, hogy az egyes kategóriák mennyire tartanak távol a céljától. Ne becsülje alá a vizualizáció erejét!
+
+Mire vár még? Kezdje el a költségvetés tervezését most az Eggconomy-val!
