@@ -1,4 +1,4 @@
-Eggconomy er en sparesporingstjeneste som hjelper deg med å nå dine økonomiske sparemål ved å gjøre budsjetteringen enklere og gi deg innsikt i forbruksvanene dine. I starten velger du sparemål og forbruksgrense, legger til inntekter og utgifter gjennom måneden og ser liveoppdateringer på hovedskjermen om hvor nær du er målet ditt!
+Moolah Meadow er en sparesporingstjeneste som hjelper deg med å nå dine økonomiske sparemål ved å gjøre budsjetteringen enklere og gi deg innsikt i forbruksvanene dine. I starten velger du sparemål og forbruksgrense, legger til inntekter og utgifter gjennom måneden og ser liveoppdateringer på hovedskjermen om hvor nær du er målet ditt!
 
 I tillegg har du i begynnelsen en quiz om økonomisk personlighet som bestemmer og skreddersyr daglige bekreftelser og tips til deg.
 
@@ -6,4 +6,4 @@ Det er enkelt å holde oversikt over utgifter eller inntekter. Klikk på en plus
 
 For å få innsikt, gå til statistikkdelen av appen, hvor du kan se forskjellige diagrammer for forbruket ditt. Det er et rent visualiseringsverktøy som hjelper deg å forstå hvor mye hver kategori holder deg unna målet ditt. Ikke undervurder kraften i visualisering!
 
-Så hva venter du på? Start budsjetteringen nå med Eggconomy!
+Så hva venter du på? Start budsjetteringen nå med Moolah Meadow!

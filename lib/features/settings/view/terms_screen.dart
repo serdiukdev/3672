@@ -26,7 +26,7 @@ class _TermsOfUseState extends State<TermsOfUse> {
 
   @override
   void initState() {
-    terms = 'https://doc-hosting.flycricket.io/eggconomy-terms-of-use/30d0c176-e16f-4c21-9c1c-7ba0bc89e700/terms';
+    terms = 'https://doc-hosting.flycricket.io/moolah-meadow-terms-of-use/6d6ae8b2-6854-435f-bc59-cb319b237ea5/terms';
     super.initState();
   }
 

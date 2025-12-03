@@ -1,4 +1,4 @@
-Eggconomy adalah pelacak tabungan yang membantu Anda mencapai tujuan keuangan dengan menabung, mempermudah penganggaran, dan memberikan wawasan tentang kebiasaan belanja Anda. Di awal, pilih tujuan tabungan dan batas pengeluaran Anda, tambahkan pendapatan dan pengeluaran Anda sepanjang bulan, dan lihat pembaruan langsung di layar utama seberapa dekat Anda dengan tujuan Anda!
+Moolah Meadow adalah pelacak tabungan yang membantu Anda mencapai tujuan keuangan dengan menabung, mempermudah penganggaran, dan memberikan wawasan tentang kebiasaan belanja Anda. Di awal, pilih tujuan tabungan dan batas pengeluaran Anda, tambahkan pendapatan dan pengeluaran Anda sepanjang bulan, dan lihat pembaruan langsung di layar utama seberapa dekat Anda dengan tujuan Anda!
 
 Selain itu, di awal, Anda akan menemukan kuis kepribadian finansial yang menentukan dan menyesuaikan afirmasi serta tips harian untuk Anda.
 
@@ -6,4 +6,4 @@ Mencatat pengeluaran atau pendapatan Anda mudah, klik tombol plus dan pilih kate
 
 Untuk mendapatkan wawasan, buka bagian statistik aplikasi tempat Anda dapat melihat berbagai grafik pengeluaran Anda. Ini adalah alat visualisasi yang jelas yang membantu Anda memahami seberapa besar setiap kategori menjauhkan Anda dari tujuan Anda. Jangan remehkan kekuatan visualisasi!
 
-Jadi tunggu apa lagi? Mulailah membuat anggaran Anda sekarang bersama Eggconomy!
+Jadi tunggu apa lagi? Mulailah mengelola anggaran Anda sekarang dengan Moolah Meadow!

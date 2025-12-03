@@ -26,7 +26,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
 
   @override
   void initState() {
-    privacy = 'https://doc-hosting.flycricket.io/eggconomy-privacy-policy/795e7835-908f-4ebd-a2e0-7770f6694915/privacy';
+    privacy = 'https://doc-hosting.flycricket.io/moolah-meadow-privacy-policy/a9d15eaf-bf59-42a0-a0a5-497f570a9011/privacy';
     super.initState();
   }
 

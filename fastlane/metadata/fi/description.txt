@@ -1,9 +1,9 @@
-Eggconomy on säästöseurantatyökalu, joka auttaa sinua saavuttamaan taloudelliset tavoitteesi säästöjen avulla helpottamalla budjetointia ja tarjoamalla tietoa kulutustottumuksistasi. Aluksi valitse säästötavoitteesi ja kulutusrajasi, lisää tulosi ja menosi kuukauden ajalta ja näe päänäytöllä reaaliaikaisia ​​päivityksiä siitä, kuinka lähellä olet tavoitettasi!
+Moolah Meadow on säästöseurantatyökalu, joka auttaa sinua saavuttamaan taloudelliset tavoitteesi säästöjen avulla helpottamalla budjetointia ja tarjoamalla tietoa kulutustottumuksistasi. Aluksi valitse säästötavoitteesi ja kulutusrajasi, lisää tulosi ja menosi kuukauden ajalta ja näe päänäytöllä reaaliaikaisia ​​päivityksiä siitä, kuinka lähellä olet tavoitettasi!
 
 Lisäksi alussa sinulla on taloudellinen persoonallisuustesti, joka määrittää ja räätälöi päivittäiset affirmaatiot ja vinkit sinulle.
 
 Menojesi tai tulojesi pitäminen hallinnassa on helppoa. Napsauta plus-painiketta ja valitse kategoriat luettelosta: Palkka, Sijoitukset, Osa-aikainen, Bonus, Ostokset, Ravintolat ja kahvilat, Laskut, Viihde, Koulutus, Liikenne, Terveys, Lemmikit, Lahjat ja paljon muuta. Muista syöttää summa, päivämäärä ja muistiinpanot pitääksesi kirjanpitosi järjestyksessä.
 
-Saat tietoa siirtymällä sovelluksen tilasto-osioon, jossa voit nähdä erilaisia ​​kaavioita kulutuksestasi. Se on selkeä visualisointityökalu, joka auttaa sinua ymmärtämään, kuinka paljon kukin kategoria pitää sinut poissa tavoitteestasi. Älä aliarvioi visualisoinnin voimaa!
+Saat tietoa siirtymällä sovelluksen tilasto-osioon, jossa voit nähdä erilaisia ​​kaavioita menoistasi. Se on selkeä visualisointityökalu, joka auttaa sinua ymmärtämään, kuinka paljon kukin kategoria pitää sinut poissa tavoitteestasi. Älä aliarvioi visualisoinnin voimaa!
 
-Mitä siis vielä odotat? Aloita budjetointisi nyt Eggconomyn avulla!
+Mitä siis vielä odotat? Aloita budjetointisi nyt Moolah Meadow'n avulla!

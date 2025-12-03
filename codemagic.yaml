@@ -10,7 +10,7 @@ workflows:
         - store_credentials
       vars:
         IOS_BUNDLE_ID: com.serdiukproj.app # <-- Put the value
-        APP_NAME: Eggconomy  # <-- Put the value
+        APP_NAME: Moolah Meadow  # <-- Put the value
 
     scripts:
       - name: Print working dir & contents
@@ -135,7 +135,7 @@ workflows:
         script: |
           flutter build ipa --release \
             --build-name=1.0 \
-            --build-number=1 \
+            --build-number=2 \
             --export-options-plist=ios/export_options.plist
     artifacts:
         - build/ios/ipa/*.ipa

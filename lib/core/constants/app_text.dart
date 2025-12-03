@@ -1,5 +1,5 @@
 class AppTexts {
-  static const appIosTitle = 'Eggconomy';
+  static const appIosTitle = 'Moolah Meadow';
 
   static const loading = 'LOADING...';
   static const settings = 'Settings';
