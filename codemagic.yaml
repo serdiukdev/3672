@@ -106,7 +106,7 @@ workflows:
     max_build_duration: 120
     instance_type: mac_mini_m1
     integrations:
-      app_store_connect: economy # <-- Put the value
+      app_store_connect: moolahmeadow # <-- Put the value
     environment:
       groups:
         - store_credentials
