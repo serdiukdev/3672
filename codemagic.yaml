@@ -116,7 +116,7 @@ workflows:
       vars:
         BUNDLE_ID: "com.serdiukproj.app" # <-- Put the value
         APP_STORE_APPLE_ID: 6754933044 # <-- Put the value
-      flutter: 3.29.3 
+      flutter: 3.32.8
       xcode: latest
       cocoapods: default
     scripts:
