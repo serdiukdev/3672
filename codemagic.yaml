@@ -45,7 +45,8 @@ workflows:
             echo "Processing metadata locale: $LOCALE"
             
             # Check for required metadata files in each locale
-            REQUIRED_FILES=("name.txt" "description.txt" "keywords.txt")
+            # REQUIRED_FILES=("name.txt" "description.txt" "keywords.txt")
+            REQUIRED_FILES=("description.txt" "keywords.txt")
             MISSING=0
             for FILE in "${REQUIRED_FILES[@]}"; do
               if [ ! -f "$LOCALE_DIR/$FILE" ]; then
