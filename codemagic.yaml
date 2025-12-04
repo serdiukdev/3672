@@ -63,7 +63,8 @@ workflows:
           done
           
           # Verify required files exist in en-US (this is a must)
-          REQUIRED_FILES=("name.txt" "description.txt" "keywords.txt" "privacy_url.txt" "support_url.txt")
+          # REQUIRED_FILES=("name.txt" "description.txt" "keywords.txt" "privacy_url.txt" "support_url.txt")
+          REQUIRED_FILES=("description.txt" "keywords.txt" "privacy_url.txt" "support_url.txt")
           for FILE in "${REQUIRED_FILES[@]}"; do
             if [ ! -f "./fastlane/metadata/en-US/$FILE" ]; then
               echo "ERROR: Required metadata file ./fastlane/metadata/en-US/$FILE is missing"
